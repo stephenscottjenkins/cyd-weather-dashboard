@@ -1,0 +1,16 @@
+# Images
+*.jpg
+*.png
+*.jpeg
+
+# macOS
+.DS_Store
+
+# Python
+__pycache__/
+*.pyc
+
+# ESP-IDF build
+build/
+*.bin
+*.elf

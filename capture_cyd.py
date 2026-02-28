@@ -8,14 +8,13 @@ import cv2
 import numpy as np
 import sys
 
-RTSP_URL = "rtsp://192.168.0.73:8554/cam"
+RTSP_URL = "rtsp://192.168.0.73:8554/eufy"  # Eufy C120 via mediamtx proxy
 
-# Crop region for CYD screen (adjust these based on camera position)
-# Format: (y_start, y_end, x_start, x_end) as ratios of image
-CROP_Y1 = 0.50  # 50% from top - screen starts here
-CROP_Y2 = 0.98  # 98% from top - screen ends near bottom
-CROP_X1 = 0.36  # 36% from left - left edge of screen
-CROP_X2 = 0.74  # 74% from left - right edge of screen
+# Crop region for CYD screen (ratios of 1920x1080 frame)
+CROP_Y1 = 0.32  # screen top
+CROP_Y2 = 0.47  # screen bottom
+CROP_X1 = 0.40  # screen left
+CROP_X2 = 0.57  # screen right
 
 def capture_frame():
     """Capture frame from RTSP stream."""
@@ -25,8 +24,8 @@ def capture_frame():
         return None
     
     # Discard first few frames (buffer clearing)
-    for _ in range(5):
-        cap.read()
+    for _ in range(30):
+        cap.grab()
     
     # Capture the good frame
     ret, frame = cap.read()
